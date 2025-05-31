@@ -15,7 +15,7 @@
     "@mui/icons-material": "^6.4.11",
     "@mui/material": "^6.4.11",
     "@mui/x-charts": "^8.4.0",
-    "@mui/x-data-grid": "^8.4.0",
+    "@mui/x-data-grid": "^8.5.0",
     "@reduxjs/toolkit": "^2.8.2",
     "@tailwindcss/vite": "^4.1.7",
     "@toolpad/core": "^0.12.0",

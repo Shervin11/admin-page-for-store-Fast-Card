@@ -9,6 +9,7 @@ import Modal from '@mui/material/Modal';
 import API from '../../shared/config/api';
 import CloseIcon from '@mui/icons-material/Close';
 import BrandsTab from '../../shared/components/brandsTab';
+import SubCategory from '../../shared/components/subCategories';
 
 const style = {
   position: 'absolute',
@@ -82,7 +83,7 @@ const Other = () => {
           <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
             <Tab label="Categories" {...a11yProps(0)} />
             <Tab label="Brands" {...a11yProps(1)} />
-            <Tab label="Banners" {...a11yProps(2)} />
+            <Tab label="SubCategories" {...a11yProps(2)} />
           </Tabs>
         </Box>
 
@@ -139,7 +140,7 @@ const Other = () => {
         </CustomTabPanel>
 
         <CustomTabPanel value={value} index={2}>
-          Item Three
+          <SubCategory />
         </CustomTabPanel>
       </Box>
   </>;

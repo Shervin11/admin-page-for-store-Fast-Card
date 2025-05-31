@@ -48,7 +48,7 @@ const BrandsTab = () => {
                 </article>
                 <Button onClick={() => dispatch(addBrands(brandName))} variant='contained'>Create</Button>
                 </article>
-            </article>
+        </article>
         </>
     )
 }
