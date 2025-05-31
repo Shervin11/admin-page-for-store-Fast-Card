@@ -11,6 +11,17 @@ export const getProduct = createAsyncThunk("product/getProduct", async () => {
   }
 });
 
+export const addProduct = createAsyncThunk("product/addProduct", async (form, { dispatch }) => {
+  try {
+    await axios.post(`${API}Product/add-product`, form, {
+      headers: { Authorization: `Bearer ${localStorage.getItem('adminToken')}` }
+    });
+    dispatch(getProduct())
+  } catch (error) {
+    console.error(error);
+  }
+});
+
 export const deleteProduct = createAsyncThunk("table/deleteProduct", async (id, {dispatch}) => {
   try {
     const { data } = await axios.delete(

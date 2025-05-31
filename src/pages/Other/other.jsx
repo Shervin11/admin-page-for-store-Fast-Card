@@ -1,8 +1,8 @@
-import PropTypes from 'prop-types';
+import PropTypes, { func } from 'prop-types';
 import { Box, Button, Tab, Tabs, TextField } from "@mui/material";
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCategory } from '../../entities/api/categoryApi';
+import { addCategory, getCategory } from '../../entities/api/categoryApi';
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
@@ -29,6 +29,8 @@ const Other = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [categoryImage, setCategoryImage] = useState('')
+  const [categoryName, setCategoryName] = useState('')
     
   function CustomTabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -67,6 +69,13 @@ const Other = () => {
     dispatch(getCategory()) 
   }, [])
 
+  function addCategoryFunc() {
+    let form = new FormData()
+    form.append('CategoryImage', categoryImage)
+    form.append('CategoryName', categoryName)
+    dispatch(addCategory(form))
+  }
+
   return <>
     <Box sx={{ width: '100%' }}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -85,7 +94,7 @@ const Other = () => {
           <article className='flex items-center flex-wrap gap-[16px] mt-[24px]'>
             {categories.map((e) => {
               return (
-                <article key={e.id} className='w-[182px] h-[144px] hover:bg-[#2563EB] text-[#2563EB] hover:text-[#FAFAFA] py-[24px] px-[20px] border-[1px] border-[#0000004D] rounded-[4px]'>
+                <article key={e.id} className='w-[182px] h-[144px] hover:bg-[#2563EB] text-[#2563EB] hover:border-transparent hover:text-[#FAFAFA] py-[24px] px-[20px] border-[1px] border-[#0000004D] rounded-[4px]'>
                   <article className='flex items-start justify-between'>
                     <img src={`${API}images/${e.categoryImage}`} className='w-[66px] rounded-[10px] h-[60px]' alt="image" />
                     <BorderColorOutlinedIcon className="cursor-pointer" />
@@ -96,6 +105,8 @@ const Other = () => {
             })
             }
           </article>
+        </CustomTabPanel>
+
           <Modal
             open={open}
             onClose={handleClose}
@@ -110,17 +121,19 @@ const Other = () => {
                 </article>
               </Typography>
               <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                <TextField label='Category name' className='w-full' />
-                <input type='file' className='border-[1px] cursor-pointer border-[gray] w-full rounded-[4px] my-[20px] p-[5px]' />
+                <TextField value={categoryName} onChange={e => setCategoryName(e.target.value)} label='Category name' className='w-full' />
+                <input type='file' onChange={(e) => setCategoryImage(e.target.files[0])} className='border-[1px] cursor-pointer border-[gray] w-full rounded-[4px] my-[20px] p-[5px]' />
                 <article className='flex items-center gap-[10px] justify-end'>
                   <Button variant='outlined' onClick={handleClose}>Cancel</Button>
-                  <Button variant='contained'>Create</Button>
+                  <Button variant='contained' onClick={async () => {
+                    await addCategoryFunc()
+                    handleClose()
+                  }
+                  }>Create</Button>
                 </article>
               </Typography>
             </Box>
           </Modal>
-        </CustomTabPanel>
-
         <CustomTabPanel value={value} index={1}>
           <BrandsTab />
         </CustomTabPanel>

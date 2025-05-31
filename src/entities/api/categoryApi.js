@@ -11,3 +11,14 @@ export const getCategory = createAsyncThunk("category/getCategory", async () => 
     console.error(error);
   }
 });
+
+export const addCategory = createAsyncThunk("category/addCategory", async (form, { dispatch }) => {
+  try {
+    await axios.post(`${API}Category/add-category`, form, {
+      headers: { Authorization: `Bearer ${localStorage.getItem('adminToken')}`}
+    });
+    dispatch(getCategory())
+  } catch (error) {
+    console.error(error);
+  }
+});

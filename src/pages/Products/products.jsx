@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteProduct, getProduct } from "../../entities/api/productsApi";
 import API from "../../shared/config/api";
 import CloseIcon from '@mui/icons-material/Close';
+import { Link } from "react-router-dom";
 
 const style = {
   position: 'absolute',
@@ -40,7 +41,9 @@ const Products = () => {
       <section>
         <article className="flex items-center justify-between">
           <h2 className="text-[24px] font-bold">Products</h2>
-          <Button className="h-[40px]" variant="contained">+ Add products</Button>
+          <Link to={'/dash/addProduct'}>
+            <Button className="h-[40px]" variant="contained">+ Add products</Button>
+          </Link>
         </article>
         <article className="mt-[40px] flex md:flex-row flex-col gap-[10px] md:items-center justify-between">
           <article className="flex items-center gap-[12px]">
