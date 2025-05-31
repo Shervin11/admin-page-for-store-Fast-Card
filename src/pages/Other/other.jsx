@@ -38,7 +38,6 @@ const Other = () => {
   const [editCategoryName, setEditCategoryName] = useState('')
   const [editCategoryImage, setEditCategoryImage] = useState('')
   const [editCategoryId, setEditCategoryId] = useState('')
-  const [imageKey, setImageKey] = useState(null);
     
   function CustomTabPanel(props) {
     const { children, value, index, ...other } = props;

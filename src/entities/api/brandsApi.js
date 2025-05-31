@@ -32,3 +32,14 @@ export const addBrands = createAsyncThunk("brand/addBrands", async (name, {dispa
     console.error(error);
   }
 });
+
+export const editBrands = createAsyncThunk("brand/editBrands", async (brand, {dispatch}) => {
+  try {
+    await axios.put(`${API}Brand/update-brand?Id=${brand.Id}&BrandName=${brand.BrandName}`, {}, {
+      headers: {Authorization: `Bearer ${localStorage.getItem('adminToken')}`}
+    });
+    dispatch(getBrands())
+  } catch (error) {
+    console.error(error);
+  }
+});
