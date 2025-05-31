@@ -72,17 +72,14 @@ const Other = () => {
     setValue(newValue);
   };
 
-  useEffect(() => {
-    dispatch(getCategory()) 
-  }, [])
-
+  
   function addCategoryFunc() {
     let form = new FormData()
     form.append('CategoryImage', categoryImage)
     form.append('CategoryName', categoryName)
     dispatch(addCategory(form))
   }
-
+  
   function handleEdit(e) {
     e.preventDefault()
     let form = new FormData()
@@ -90,7 +87,12 @@ const Other = () => {
     form.append('CategoryImage', editCategoryImage)
     form.append('CategoryName', editCategoryName)
     dispatch(editCategory(form))
+    handleEditClose()
   }
+  
+  useEffect(() => {
+    dispatch(getCategory()) 
+  }, [])
 
   return <>
     <Box sx={{ width: '100%' }}>
@@ -147,7 +149,7 @@ const Other = () => {
                 <input type='file' onChange={(e) => setEditCategoryImage(e.target.files[0])} className='border-[1px] cursor-pointer border-[gray] w-full rounded-[4px] my-[20px] p-[5px]' />
                 <article className='flex items-center gap-[10px] justify-end'>
                   <Button variant='outlined' type='button' onClick={handleEditClose}>Cancel</Button>
-                  <Button variant='contained' type='submit' onClick={handleEditClose}>Edit</Button>
+                  <Button variant='contained' type='submit'>Edit</Button>
                 </article>
                 </form>
               </Typography>
