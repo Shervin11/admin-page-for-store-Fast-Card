@@ -22,3 +22,14 @@ export const addCategory = createAsyncThunk("category/addCategory", async (form,
     console.error(error);
   }
 });
+
+export const editCategory = createAsyncThunk("category/editCategory", async (form, { dispatch }) => {
+  try {
+    await axios.put(`${API}Category/update-category`, form, {
+      headers: { Authorization: `Bearer ${localStorage.getItem('adminToken')}`}
+    });
+    dispatch(getCategory())
+  } catch (error) {
+    console.error(error);
+  }
+});
