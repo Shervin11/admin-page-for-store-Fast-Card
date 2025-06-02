@@ -23,16 +23,19 @@ const EditProduct = () => {
     const [editCode, setEditCode] = useState('');
     const [editPrice, setEditPrice] = useState('');
     const [editHasDiscount, setEditHasDiscount] = useState('');
+    const [editDiscount, setEditDiscount] = useState('');
     const [editSubCategoryId, setEditSubCategoryId] = useState('');
     const [imagePreview, setImagePreview] = useState(null);
     const [imageKey, setImageKey] = useState(null);
     const navigate = useNavigate()
     const { id } = useParams()
 
+    console.log(product);
+    
+
     const findColor = colors.find((e) => e.colorName == product.color)
     const findSubCategory = subCategory.find((e) => e.id == product.subCategoryId)
     const findBrand = brands.find((e) => e.brandName == product.brand)
-
     function handleAddImage(e) {
       const file = e.target.files[0]
       let reader = new FileReader()
@@ -54,6 +57,7 @@ const EditProduct = () => {
         quantity: editQuantity,
         weight: '',
         size: '',
+        discountPrice: editDiscount,
         price: editPrice,
         hasDiscount: editHasDiscount,
         subCategory: editSubCategoryId
@@ -75,6 +79,7 @@ const EditProduct = () => {
       setEditDescription(product.description)
       setEditPrice(product.price)
       setEditQuantity(product.quantity)
+      setEditDiscount(product.discountPrice)
       setEditHasDiscount(product.hasDiscount)
       if (findColor && findSubCategory) {
         setEditColorId(findColor.id)
@@ -173,6 +178,8 @@ const EditProduct = () => {
                 <TextField
                 label="Discount"
                 type='number'
+                value={editDiscount} 
+                onChange={(e) => setEditDiscount(e.target.value)}
                 />
                 <TextField
                 id="outlined-number"

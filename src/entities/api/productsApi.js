@@ -22,7 +22,10 @@ export const getProductById = createAsyncThunk("product/getProductById", async (
 
 export const editProduct = createAsyncThunk("product/editProduct", async (obj) => {
   try {
-    await axios.put(`${API}Product/update-product?Id=${obj.id}&BrandId=${obj.brandId}&ColorId=${obj.colorId}&ProductName=${obj.productName}&Description=${obj.description}&Quantity=${obj.quantity}&Weight=${obj.weight}&Size=${obj.size}&Code=${obj.code}&Price=${obj.price}&HasDiscount=${obj.hasDiscount}&SubCategoryId=${obj.subCategory}`);
+    let res = await axios.put(`${API}Product/update-product?Id=${obj.id}&BrandId=${obj.brandId}&ColorId=${obj.colorId}&ProductName=${obj.productName}&Description=${obj.description}&Quantity=${obj.quantity}&Weight=${obj.weight}&Size=${obj.size}&Code=${obj.code}&Price=${obj.price}&HasDiscount=${obj.hasDiscount}&DiscountPrice=${obj.discountPrice}&SubCategoryId=${obj.subCategory}`, {}, {
+      headers: { Authorization: `Bearer ${localStorage.getItem('adminToken')}` } 
+    });
+    console.log(res);
   } catch (error) {
     console.error(error);
   }
