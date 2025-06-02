@@ -6,6 +6,7 @@ import Products from "/src/pages/Products/products";
 import Other from "/src/pages/Other/other";
 import Log from "/src/pages/logIn/log"
 import AddProduct from "/src/pages/addProduct/addProduct";
+import EditProduct from "../../pages/editProduct/editProduct";
 
 function Layout() {
   const router = createBrowserRouter([
@@ -42,6 +43,10 @@ function Layout() {
         {
           path: "addProduct",
           element: <AddProduct />,
+        },
+        {
+          path: "products/:id",
+          element: <EditProduct />,
         },
       ],
     },

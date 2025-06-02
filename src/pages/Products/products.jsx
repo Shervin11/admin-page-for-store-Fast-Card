@@ -113,7 +113,9 @@ const Products = () => {
                     <td className="p-4">$ {e.price}</td>
                     <td className="p-4">
                       <article className="flex items-center gap-[8px]">
-                        <BorderColorOutlinedIcon className="text-[#2563EB] cursor-pointer" />
+                        <Link to={`${e.id}`}>
+                          <BorderColorOutlinedIcon className="text-[#2563EB] cursor-pointer" />
+                        </Link>
                         <DeleteOutlineOutlinedIcon onClick={handleOpen} className="text-[red] cursor-pointer" />
                       </article>
                     </td>

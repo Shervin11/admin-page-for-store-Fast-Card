@@ -13,7 +13,6 @@ const AddProduct = () => {
   const subCategory = useSelector(state => state.subCategory.subCategory)
   const brands = useSelector(state => state.brand.brands)
   const label = { inputProps: { 'aria-label': 'Switch demo' } };
-  const [addImage, setAddImage] = useState(null);
   const [addBrandId, setAddBrandId] = useState('');
   const [addColorId, setAddColorId] = useState('');
   const [addProductName, setAddProductName] = useState('');

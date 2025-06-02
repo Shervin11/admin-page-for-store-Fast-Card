@@ -11,6 +11,23 @@ export const getProduct = createAsyncThunk("product/getProduct", async () => {
   }
 });
 
+export const getProductById = createAsyncThunk("product/getProductById", async (id) => {
+  try {
+    let { data } = await axios.get(`${API}Product/get-product-by-id?id=${id}`);
+    return data.data
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+export const editProduct = createAsyncThunk("product/editProduct", async (obj) => {
+  try {
+    await axios.put(`${API}Product/update-product?Id=${obj.id}&BrandId=${obj.brandId}&ColorId=${obj.colorId}&ProductName=${obj.productName}&Description=${obj.description}&Quantity=${obj.quantity}&Weight=${obj.weight}&Size=${obj.size}&Code=${obj.code}&Price=${obj.price}&HasDiscount=${obj.hasDiscount}&SubCategoryId=${obj.subCategory}`);
+  } catch (error) {
+    console.error(error);
+  }
+});
+
 export const addProduct = createAsyncThunk("product/addProduct", async (form, { dispatch }) => {
   try {
     await axios.post(`${API}Product/add-product`, form, {
