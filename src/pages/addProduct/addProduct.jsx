@@ -1,4 +1,4 @@
-import { Button, FormControl, InputLabel, MenuItem, Select, Switch, TextField } from '@mui/material'
+import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom'
@@ -21,6 +21,7 @@ const AddProduct = () => {
   const [addCode, setAddCode] = useState('');
   const [addPrice, setAddPrice] = useState('');
   const [addHasDiscount, setAddHasDiscount] = useState('');
+  const [addDiscount, setAddDiscount] = useState('');
   const [addSubCategoryId, setAddSubCategoryId] = useState('');
   const [imagePreview, setImagePreview] = useState(null);
   const [imageKey, setImageKey] = useState(null);
@@ -49,6 +50,9 @@ const AddProduct = () => {
     form.append('Price', addPrice)
     form.append('HasDiscount', addHasDiscount)
     form.append('SubCategoryId', addSubCategoryId)
+    if (addHasDiscount == 'true') {
+      form.append('DiscountPrice', addDiscount)
+    }
     await dispatch(addProduct(form))    
     navigate('/dash/products')
   }
@@ -141,16 +145,12 @@ const AddProduct = () => {
               value={addPrice} 
               onChange={(e) => setAddPrice(e.target.value)}
               type="number"
-              slotProps={{
-                inputLabel: {
-                  shrink: true,
-                },
-              }}
               />
               <TextField
               label="Discount"
-              value={addHasDiscount} 
-              onChange={(e) => setAddHasDiscount(e.target.value)}
+              type='number'
+              value={addDiscount}
+              onChange={(e) => setAddDiscount(e.target.value)}
               />
               <TextField
               id="outlined-number"
@@ -158,15 +158,20 @@ const AddProduct = () => {
               value={addQuantity} 
               onChange={(e) => setAddQuantity(e.target.value)}
               type="number"
-              slotProps={{
-                inputLabel: {
-                  shrink: true,
-                },
-              }}
               />
             </article>
-            <article className='flex items-center gap-[5px]'>
-              <Switch {...label} />
+            <article className='flex items-center gap-[20px]'>
+              <FormControl className='w-[200px]'>
+                <InputLabel id="demo-simple-select-label">Add has discount</InputLabel>
+                <Select
+                  value={addHasDiscount}
+                  onChange={(e) => setAddHasDiscount(e.target.value)}
+                  label="Add has discount"
+                >
+                  <MenuItem value='true'>true</MenuItem>
+                  <MenuItem value='false'>false</MenuItem>
+                </Select>
+              </FormControl>
               <h3>Add tax for this product</h3>
             </article>
           </article>

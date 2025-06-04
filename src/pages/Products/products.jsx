@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
-import { Box, Button, FormControl, InputLabel, Modal, Select, TextField, Typography } from "@mui/material";
+import { Button, FormControl, InputLabel, Select, TextField } from "@mui/material";
 import MenuItem from '@mui/material/MenuItem';
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { useDispatch, useSelector } from "react-redux";
 import { deleteProduct, getProduct } from "../../entities/api/productsApi";
 import API from "../../shared/config/api";
-import CloseIcon from '@mui/icons-material/Close';
 import { Link } from "react-router-dom";
 
 const style = {
@@ -28,6 +27,7 @@ const Products = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [idx, setIdx] = useState(null)
   
   const handleChange = (event) => {
     setAge(event.target.value);
@@ -116,36 +116,11 @@ const Products = () => {
                         <Link to={`${e.id}`}>
                           <BorderColorOutlinedIcon className="text-[#2563EB] cursor-pointer" />
                         </Link>
-                        <DeleteOutlineOutlinedIcon onClick={handleOpen} className="text-[red] cursor-pointer" />
+                        <DeleteOutlineOutlinedIcon onClick={async () => {
+                          await dispatch(deleteProduct(e.id))
+                        }} className="text-[red] cursor-pointer" />
                       </article>
                     </td>
-                    <Modal
-                      open={open}
-                      onClose={handleClose}
-                      aria-labelledby="modal-modal-title"
-                      aria-describedby="modal-modal-description"
-                      >
-                      <Box sx={style}>
-                      <Typography id="modal-modal-title" variant="h6" component="h2">
-                        <article className='flex text-[20px] font-bold items-center justify-between'>
-                          Delete product
-                          <CloseIcon onClick={handleClose} className='cursor-pointer' />
-                        </article>
-                      </Typography>
-                      
-                      <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        Are you sure you want to delete this product?
-                        <article className='flex items-center gap-[10px] mt-[20px] justify-end'>
-                          <Button variant='contained' onClick={handleClose}>Cancel</Button>
-                          <Button onClick={async () => {
-                            await dispatch(deleteProduct(e.id))
-                            handleClose()
-                          }}
-                          variant='outlined' className="text-[#EF4444] border-[#EF4444]">Delete</Button>
-                        </article>
-                      </Typography>
-                      </Box>
-                    </Modal>
                   </tr>
                 );
               })}
